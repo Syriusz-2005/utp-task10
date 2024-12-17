@@ -2,11 +2,13 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.FutureTask;
 
 public class ContentPanel extends JLayeredPane {
     private final JPanel bg = new JPanel();
-    public ContentPanel(DefaultListModel<FutureTask<?>> tasks) {
+    public ContentPanel(DefaultListModel<FutureTask<?>> tasks, ExecutorService pool) {
         var dim = new Dimension(1300, 750);
         setPreferredSize(dim);
         bg.setSize(dim);
@@ -28,7 +30,7 @@ public class ContentPanel extends JLayeredPane {
         add(sceneContainer, JLayeredPane.PALETTE_LAYER);
         tasks.addElement(scene.getTask());
 
-        var shootingStarEmitter = new ShootingStarEmitter(100, tasks);
+        var shootingStarEmitter = new ShootingStarEmitter(100, tasks, pool);
         scene.addItem(shootingStarEmitter);
 
         var timer = new Timer();

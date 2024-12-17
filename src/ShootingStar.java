@@ -9,7 +9,7 @@ public class ShootingStar implements SceneItem {
     private final int size = 5;
 
     private final FutureTask<String> task = new FutureTask<>(() -> {
-        int lifetime = Utils.randInt(100, 160);
+        int lifetime = Utils.randInt(120, 200);
         for (int i = 0; i < lifetime; i++) {
             Thread.sleep(13);
             pos = pos.add(vel);
@@ -37,11 +37,16 @@ public class ShootingStar implements SceneItem {
     public void render(Graphics g) {
         var renderedPos = pos.clone();
         var color = Color.WHITE;
-        for (int i = 0; i < 6; i++) {
+        var delta = vel.clone().multiply(0.8f);
+        double FACTOR = 0.84;
+        for (int i = 0; i < 10; i++) {
             g.setColor(color);
             g.fillOval((int) renderedPos.x, (int) renderedPos.y, size, size);
-            color = color.darker();
-            renderedPos.subtract(vel);
+            color = new Color(Math.max((int)(color.getRed() * FACTOR), 0),
+                    Math.max((int)(color.getGreen()*FACTOR), 0),
+                    Math.max((int)(color.getBlue() *FACTOR), 0),
+                    color.getAlpha());
+            renderedPos.subtract(delta);
         }
     }
 
