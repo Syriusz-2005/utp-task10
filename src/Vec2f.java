@@ -96,9 +96,8 @@ public class Vec2f {
 
     @Override
     public String toString() {
-        return "Vec2f{" +
-                "x=" + x +
-                ", y=" + y +
-                '}';
+        return
+            "x=" + x +
+            ", y=" + y;
     }
 }

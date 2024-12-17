@@ -15,9 +15,4 @@ public class RocketEmitter implements SceneItem {
             scene.addItem(rocket);
         }
     }
-
-    @Override
-    public int getLifetime() {
-        return Integer.MAX_VALUE;
-    }
 }

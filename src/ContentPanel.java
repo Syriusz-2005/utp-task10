@@ -17,8 +17,19 @@ public class ContentPanel extends JLayeredPane {
         var sceneContainer = scene.getContainer();
         sceneContainer.setSize(dim);
         scene.addItem(new RocketEmitter(130));
+        for (int i = 0; i < 100; i++) {
+            var star = new Particle();
+            star.color = Color.WHITE;
+            star.lifetime = Integer.MAX_VALUE;
+            star.size = Utils.randInt(1, 4);
+            star.pos = new Vec2f(Utils.randInt(0, dim.width), Utils.randInt(0, dim.height));
+            scene.addParticle(star);
+        }
         add(sceneContainer, JLayeredPane.PALETTE_LAYER);
         tasks.addElement(scene.getTask());
+
+        var shootingStarEmitter = new ShootingStarEmitter(100, tasks);
+        scene.addItem(shootingStarEmitter);
 
         var timer = new Timer();
         var timerContainer = timer.getContainer();

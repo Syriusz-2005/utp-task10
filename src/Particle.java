@@ -15,7 +15,7 @@ public class Particle {
     public void render(Graphics g) {
         g.setColor(color);
         Vec2i p = pos.toInt();
-        g.fillArc(p.x, p.y, size, size, 0, 360);
+        g.fillOval(p.x, p.y, size, size);
     }
 
     @Override

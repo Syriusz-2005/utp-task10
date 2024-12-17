@@ -17,6 +17,9 @@ public class ParticleScene {
             var bounds = g.getClipBounds();
             g.clearRect(0, 0, bounds.x, bounds.y);
             synchronized (particles) {
+                for (var item : items) {
+                    item.render(g);
+                }
                 for (var particle : particles) {
                     particle.render(g);
                 }
@@ -32,14 +35,15 @@ public class ParticleScene {
                     item.step(stepLength, this);
                 }
                 items.addAll(newItemsQueue);
+                items.removeIf((i) -> i.getLifetime() < 0);
                 newItemsQueue = new ArrayList<>();
                 synchronized (particles) {
                     for (var particle : particles) {
                         particle.step(stepLength);
                     }
                     particles.removeIf((p) -> p.lifetime < 0);
+                    items.removeIf((p) -> p.getLifetime() < 0);
                 }
-                items.removeIf((p) -> p.getLifetime() < 0);
                 container.getParent().getParent().repaint();
                 long curr = System.nanoTime();
                 long renderTimeNs = curr - prev;
@@ -72,7 +76,9 @@ public class ParticleScene {
     }
 
     public void addItem(SceneItem item) {
-        newItemsQueue.add(item);
+        synchronized (particles) {
+            newItemsQueue.add(item);
+        }
     }
 
     public JPanel getContainer() {
@@ -80,5 +86,9 @@ public class ParticleScene {
     }
     public FutureTask<Void> getTask() {
         return task;
+    }
+
+    public Dimension getSize() {
+        return container.getSize();
     }
 }
