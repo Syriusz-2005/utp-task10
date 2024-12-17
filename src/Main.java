@@ -11,10 +11,13 @@ public class Main extends JFrame {
         DefaultListModel<FutureTask<?>> model = new DefaultListModel<>();
         ExecutorService pool = Executors.newCachedThreadPool();
         content = new ContentPanel(model, pool);
-        add(list1);
+        var scrollPane = new JScrollPane(list1);
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollPane.setPreferredSize(new Dimension(220, 750));
+        list1.setFixedCellWidth(210);
+        add(scrollPane);
         add(content);
         var layout = new GridBagLayout();
-        list1.setFixedCellWidth(200);
         setLayout(layout);
         setVisible(true);
         setDefaultCloseOperation(EXIT_ON_CLOSE);

@@ -5,7 +5,7 @@ import java.util.concurrent.FutureTask;
 public class ShootingStar implements SceneItem {
     private final ParticleScene scene;
     private Vec2f pos;
-    private final Vec2f vel = new Vec2f(Utils.randFloat(-3, 3), Utils.randFloat(2f, 3.6f));
+    private final Vec2f vel = new Vec2f(Utils.randFloat(-3, 3), Utils.randFloat(2f, 3.8f));
     private final int size = 5;
 
     private final FutureTask<String> task = new FutureTask<>(() -> {
