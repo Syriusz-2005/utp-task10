@@ -1,3 +1,5 @@
+package zad1;
+
 import java.awt.*;
 
 public class FireworkRocket implements SceneItem {
@@ -15,7 +17,7 @@ public class FireworkRocket implements SceneItem {
         pos = new Vec2f(initialX, 800);
         vel = new Vec2f(0, -1.3f);
 
-        var flightParticle = new Particle();
+        Particle flightParticle = new Particle();
         flightParticle.lifetime = flightTime;
         flightParticle.vel = vel.clone();
         flightParticle.color = rocketColor;
@@ -29,7 +31,7 @@ public class FireworkRocket implements SceneItem {
         flightTime -= 1;
         if (flightTime < 0) {
             for (int i = 0; i < 100; i++) {
-                var newParticle = new Particle();
+                Particle newParticle = new Particle();
                 newParticle.pos = pos.clone();
                 newParticle.size = 7;
                 newParticle.lifetime = Utils.randInt(90, 250);

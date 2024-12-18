@@ -1,3 +1,5 @@
+package zad1;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
@@ -14,31 +16,31 @@ public class ParticleScene {
         @Override
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
-            var bounds = g.getClipBounds();
+            Rectangle bounds = g.getClipBounds();
             g.clearRect(0, 0, bounds.x, bounds.y);
             synchronized (particles) {
-                for (var item : items) {
+                for (SceneItem item : items) {
                     item.render(g);
                 }
-                for (var particle : particles) {
+                for (Particle particle : particles) {
                     particle.render(g);
                 }
             }
         }
     };
-    private final FutureTask<Void> task = new FutureTask<>(() -> {
+    private final FutureTask<Void> task = new FutureTask<Void>(() -> {
         try {
             int frameIdx = 0;
             while (!Thread.interrupted()) {
                 long prev = System.nanoTime();
-                for (var item : items) {
+                for (SceneItem item : items) {
                     item.step(stepLength, this);
                 }
                 items.addAll(newItemsQueue);
                 items.removeIf((i) -> i.getLifetime() < 0);
                 newItemsQueue = new ArrayList<>();
                 synchronized (particles) {
-                    for (var particle : particles) {
+                    for (Particle particle : particles) {
                         particle.step(stepLength);
                     }
                     particles.removeIf((p) -> p.lifetime < 0);

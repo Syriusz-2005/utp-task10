@@ -1,3 +1,5 @@
+package zad1;
+
 import javax.swing.*;
 import java.awt.*;
 import java.time.Duration;
@@ -7,15 +9,16 @@ import java.util.concurrent.FutureTask;
 
 public class Timer {
     private final JLabel label = new JLabel("To 2025");
-    private final FutureTask<Void> task = new FutureTask<>(() -> {
+    private final FutureTask<Void> task = new FutureTask<Void>(() -> {
         while (!Thread.interrupted()) {
             LocalDateTime now = LocalDateTime.now();
             LocalDateTime newYear = LocalDateTime.of(Calendar.getInstance().get(Calendar.YEAR) + 1, 1, 1, 0, 0, 0);
             Duration delta = Duration.between(now, newYear);
+            // Java 9 adds to<unit>Part() method that would be very convenient here
             long days = delta.toDays();
-            int hours = delta.toHoursPart();
-            int minutes = delta.toMinutesPart();
-            int seconds = delta.toSecondsPart();
+            long hours = delta.minusDays(days).toHours();
+            long minutes = delta.minusDays(days).minusHours(hours).toMinutes();
+            long seconds = delta.minusDays(days).minusHours(hours).minusMinutes(minutes).getSeconds();
             label.setText(days + " days, " + hours + " hours, " + minutes + " minutes and " + seconds + " seconds to " + newYear.getYear());
             Thread.sleep(100);
         }

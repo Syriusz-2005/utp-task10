@@ -1,3 +1,7 @@
+package zad1;
+
+import zad1.ParticleScene;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.concurrent.ExecutorService;

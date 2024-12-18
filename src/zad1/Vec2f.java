@@ -1,3 +1,5 @@
+package zad1;
+
 public class Vec2f {
     public static Vec2f ZERO = new Vec2f(0, 0);
     public static Vec2f random(float min, float max) {

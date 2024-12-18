@@ -1,3 +1,5 @@
+package zad1;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -9,18 +11,18 @@ import java.util.concurrent.FutureTask;
 public class ContentPanel extends JLayeredPane {
     private final JPanel bg = new JPanel();
     public ContentPanel(DefaultListModel<FutureTask<?>> tasks, ExecutorService pool) {
-        var dim = new Dimension(1300, 750);
+        Dimension dim = new Dimension(1300, 750);
         setPreferredSize(dim);
         bg.setSize(dim);
         bg.setBackground(Color.BLACK);
         add(bg, JLayeredPane.DEFAULT_LAYER);
 
-        var scene = new ParticleScene();
-        var sceneContainer = scene.getContainer();
+        ParticleScene scene = new ParticleScene();
+        JPanel sceneContainer = scene.getContainer();
         sceneContainer.setSize(dim);
         scene.addItem(new RocketEmitter(130));
         for (int i = 0; i < 100; i++) {
-            var star = new Particle();
+            Particle star = new Particle();
             star.color = Color.WHITE;
             star.lifetime = Integer.MAX_VALUE;
             star.size = Utils.randInt(1, 4);
@@ -30,11 +32,11 @@ public class ContentPanel extends JLayeredPane {
         add(sceneContainer, JLayeredPane.PALETTE_LAYER);
         tasks.addElement(scene.getTask());
 
-        var shootingStarEmitter = new ShootingStarEmitter(100, tasks, pool);
+        ShootingStarEmitter shootingStarEmitter = new ShootingStarEmitter(100, tasks, pool);
         scene.addItem(shootingStarEmitter);
 
-        var timer = new Timer();
-        var timerContainer = timer.getContainer();
+        Timer timer = new Timer();
+        JPanel timerContainer = timer.getContainer();
         timerContainer.setSize(dim);
         add(timerContainer, JLayeredPane.MODAL_LAYER);
         tasks.addElement(timer.getTask());

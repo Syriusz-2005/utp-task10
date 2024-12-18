@@ -1,3 +1,5 @@
+package zad1;
+
 import java.awt.*;
 
 public class RocketEmitter implements SceneItem {

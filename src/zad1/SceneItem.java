@@ -1,3 +1,7 @@
+package zad1;
+
+import zad1.ParticleScene;
+
 import java.awt.*;
 
 public interface SceneItem {

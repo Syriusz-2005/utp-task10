@@ -1,3 +1,5 @@
+package zad1;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.concurrent.ExecutorService;
@@ -11,13 +13,13 @@ public class Main extends JFrame {
         DefaultListModel<FutureTask<?>> model = new DefaultListModel<>();
         ExecutorService pool = Executors.newCachedThreadPool();
         content = new ContentPanel(model, pool);
-        var scrollPane = new JScrollPane(list1);
+        JScrollPane scrollPane = new JScrollPane(list1);
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         scrollPane.setPreferredSize(new Dimension(220, 750));
         list1.setFixedCellWidth(210);
         add(scrollPane);
         add(content);
-        var layout = new GridBagLayout();
+        GridBagLayout layout = new GridBagLayout();
         setLayout(layout);
         setVisible(true);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
